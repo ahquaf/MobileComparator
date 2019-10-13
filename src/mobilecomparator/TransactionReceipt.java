@@ -56,7 +56,7 @@ public class TransactionReceipt extends javax.swing.JFrame {
                 
             }
 
-            stmt = con.prepareStatement("select images,Price from image_table,mobile_info where mobile_info.mobile_name = image_table.mobile_name and mobile_info.RAM = image_table.RAM and mobile_info.storage = image_table.storage and mobile_info.mobile_name = ? and RAM = ? and storage = ?");
+            stmt = con.prepareStatement("select images,Price from image_table,mobile_info where mobile_info.mobile_name = image_table.mobile_name and mobile_info.RAM = image_table.RAM and mobile_info.storage = image_table.storage and mobile_info.mobile_name = ? and mobile_info.RAM = ? and mobile_info.storage = ?");
             
             stmt.setString(1, mobName1);
             stmt.setString(2, mobRam1);
