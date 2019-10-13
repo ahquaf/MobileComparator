@@ -60,7 +60,7 @@ public class gate extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
             PreparedStatement stmt=con.prepareStatement(
-                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,RAM,storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.mobile_name = ? and RAM = ? and storage = ?");
+                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,mobile_info.RAM,mobile_info.storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.mobile_name = ? and RAM = ? and storage = ?");
             stmt.setString(1, mobName1);
             stmt.setString(2, mobRam1);
             stmt.setString(3, mobStorage1);
@@ -110,7 +110,7 @@ public class gate extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
             PreparedStatement stmt=con.prepareStatement(
-                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,RAM,storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.RAM = image_table.RAM and mobile_info.storage = image_table.storage and mobile_info.mobile_name = ? and mobile_info.RAM = ? and mobile_info.storage = ?");
+                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,mobile_info.RAM,mobile_info.storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.RAM = image_table.RAM and mobile_info.storage = image_table.storage and mobile_info.mobile_name = ? and mobile_info.RAM = ? and mobile_info.storage = ?");
             stmt.setString(1, mobName2);
             stmt.setString(2, mobRam2);
             stmt.setString(3, mobStorage2);
