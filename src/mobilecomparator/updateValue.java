@@ -18,11 +18,13 @@ public class updateValue extends javax.swing.JFrame {
     /**
      * Creates new form updateValue
      */
-    String mobName;
+    String mobName,mobStorage,mobRam;
     
-    public updateValue(String name) {
+    public updateValue(String name,String ram,String storage) {
         initComponents();
         mobName = name;
+        mobRam = ram;
+        mobStorage = storage;
     }
 
     /**
@@ -214,19 +216,41 @@ public class updateValue extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/project","root","ahquaf");
             
             String os = String.valueOf(jComboBox1.getSelectedItem());
-            PreparedStatement stmt=con.prepareStatement("update mobile_info set "+os+" =? where mobile_name = ?");  
+            String value = jTextField1.getText();
+            PreparedStatement stmt;
+                      
             
+            if(os.equals("RAM")){
+                stmt = con.prepareStatement("update mobile_data set "+os+" = ?");
+                stmt.setString(1, value);
+                mobRam = value;
+            }
+            else if(os.equals("storage")){
+                stmt = con.prepareStatement("update mobile_data set "+os+" = ?");
+                stmt.setString(1, value);
+                mobStorage = value;
+            }
+            else{
+                stmt = con.prepareStatement("update mobile_info set "+os+" =? where mobile_name = ? and RAM = ? and storage = ?");
+                
                 if(os.equals("Price")){
-                    stmt.setInt(1, Integer.parseInt(jTextField1.getText()));
+                    stmt.setInt(1, Integer.valueOf(value));
                 }
                 else{
-                    stmt.setString(1, jTextField1.getText());
+                    stmt.setString(1, value);
                 }
-                    
+                
                 stmt.setString(2, mobName);
-                stmt.executeUpdate();
-
-                con.close(); 
+                stmt.setString(3, mobRam);
+                stmt.setString(4, mobStorage);
+              
+            }
+               
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null,"Value Updated Successfully");
+            
+            con.close(); 
                 
         }catch(Exception e){
             System.out.println(e);
@@ -270,7 +294,7 @@ public class updateValue extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new updateValue("").setVisible(true);
+                new updateValue("","","").setVisible(true);
             }
         });
     }
