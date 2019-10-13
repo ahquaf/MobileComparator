@@ -110,7 +110,7 @@ public class gate extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
             PreparedStatement stmt=con.prepareStatement(
-                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,RAM,storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.mobile_name = ? and RAM = ? and storage = ?");
+                    "SELECT images,mobile_info.mobile_name,os,processor,battery,prim_cam,sec_cam,screen_type,RAM,storage,Price FROM mobile_info,image_table where mobile_info.mobile_name = image_table.mobile_name and mobile_info.RAM = image_table.RAM and mobile_info.storage = image_table.storage and mobile_info.mobile_name = ? and RAM = ? and storage = ?");
             stmt.setString(1, mobName2);
             stmt.setString(2, mobRam2);
             stmt.setString(3, mobStorage2);
@@ -520,13 +520,24 @@ public class gate extends javax.swing.JFrame {
                 
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
-                PreparedStatement stmt = con.prepareStatement("insert into billing(Name,Phone,Address,Landmark,City,State)values(?, ?, ?, ?, ?, ?)");
+                PreparedStatement stmt = con.prepareStatement("insert into billing(Name,Phone,Address,Landmark,City,State,mobile_name,RAM,storage)values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 stmt.setString(1, bill_n[0]);
                 stmt.setString(2, bill_n[1]);
                 stmt.setString(3, bill_n[2]);
                 stmt.setString(4, bill_n[3]);
                 stmt.setString(5, bill_n[4]);
                 stmt.setString(6, bill_n[5]);
+                
+                if(tty == 1){
+                    stmt.setString(7, mobName1);
+                    stmt.setString(8, mobRam1);
+                    stmt.setString(9, mobStorage1);
+                }
+                else{
+                    stmt.setString(7, mobName2);
+                    stmt.setString(8, mobRam2);
+                    stmt.setString(9, mobStorage2);
+                }
                 
                 stmt.executeUpdate();
                 con.close();
