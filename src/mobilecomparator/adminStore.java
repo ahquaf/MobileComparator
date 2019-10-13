@@ -376,7 +376,9 @@ public class adminStore extends javax.swing.JFrame {
             boolean isExist = false;
             
             while(rs.next()){
-                isExist = true;
+                if(rs.getString("mobile_name").equals(mobName) && rs.getString("RAM").equals(ram) && rs.getString("storage").equals(storage)){
+                    isExist = true;
+                }
             }
             
             if(isExist == true){
@@ -404,6 +406,29 @@ public class adminStore extends javax.swing.JFrame {
                 statement1.setString(10, storage);
                 
                 statement1.executeUpdate();
+                
+                try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
+                File image = new File(filePath);
+                FileInputStream inputStream = new FileInputStream(image);
+            
+                PreparedStatement statement2 = con1.prepareStatement("insert into image_table(mobile_name, RAM, storage, images)VALUES(?, ?, ?, ?)");
+                statement2.setString(1, mobName);
+                statement2.setString(2, ram);
+                statement2.setString(3, storage);
+                statement2.setBinaryStream(4, (InputStream) inputStream,(int) image.length());
+                statement2.executeUpdate();
+            
+                con1.close();
+            
+            }catch(FileNotFoundException e){
+                System.out.println("FileNotFoundException"+e);
+            }catch(SQLException e){
+                System.out.println("SQLNotFoundException"+e);
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException"+ex);
+            }
                 JOptionPane.showMessageDialog(null,"Data inserted Successfully");
             }
             
@@ -413,27 +438,7 @@ public class adminStore extends javax.swing.JFrame {
             System.out.println(e);
         }
         
-        try{
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","ahquaf");
-            File image = new File(filePath);
-            FileInputStream inputStream = new FileInputStream(image);
-            
-            PreparedStatement statement = con.prepareStatement("insert into image_table(mobile_name, images)VALUES(?, ?)");
-            statement.setString(1, mobName);
-            statement.setBinaryStream(2, (InputStream) inputStream,(int) image.length());
-            statement.executeUpdate();
-            
-            con.close();
-            
-        }catch(FileNotFoundException e){
-            System.out.println("FileNotFoundException"+e);
-        }catch(SQLException e){
-            System.out.println("SQLNotFoundException"+e);
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException"+ex);
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
