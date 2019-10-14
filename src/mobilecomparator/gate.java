@@ -355,8 +355,6 @@ public class gate extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1);
         jPanel1.setBounds(330, 0, 580, 620);
-
-        mob_pic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(mob_pic);
         mob_pic.setBounds(70, 50, 130, 160);
 
