@@ -204,12 +204,8 @@ public class Compare extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setMaximumSize(new java.awt.Dimension(50000, 50000));
         jPanel1.setLayout(null);
-
-        pic1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.add(pic1);
         pic1.setBounds(180, 70, 120, 160);
-
-        pic2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.add(pic2);
         pic2.setBounds(550, 70, 120, 160);
 
